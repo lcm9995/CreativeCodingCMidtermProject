@@ -1,0 +1,42 @@
+My adjective: Silent
+
+Adjective Brainstorm/MindMap:
+    - Hollow
+    - Soft
+    - Isolation
+    - Black and white
+    - Snow
+    - Late night
+    - Thoughts thinking
+    - Shyness
+    - Death
+    - Awkward
+    - Radio silence
+    - Winter
+    - Dead trees
+    - Street light
+    - Hyperawareness
+    - A box
+    - Lightness
+    - solitude
+    
+Project vision / pseudocode 
+  Sound waves - white against black background
+	    make function soundwaves, call multiple times from top of screen to bottom of screen
+      Multiple appear then go flat 
+     Sound waves disappear except for one at the bottom of the screen
+  Snow (small circles) fall downwards, speed decreases as they reach the ground (bottom line)
+	  make snow class
+	    group together multiple circles as objects so they fall together layer by layer
+	     start between 0 and width for x and 0 for y, until height of line (soundwae) towards bottom of screen,
+		  when one object’s y position is ___, next object
+  White dots above the bottom line slowly build up as Bottom line and space beneath gradually turn blue
+  Snow fall slows down until one dot in the middle of the screen falls
+  When circle is at the height of the bottom white line, line turns blue and snow above it disappears
+  White line moves upwards until it is not visible and background becomes blue
+	  as the line move, the single white circle remains on the screen relative to the changing background
+  Larger blue circles percolate/ switch shades of blue to suggest ocean,
+  Screen fades to black 
+  A light circular shape appears, street light and then a street
+  A dead tree with no leaves
+
