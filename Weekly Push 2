@@ -1,0 +1,159 @@
+var snowX = [];
+var snowy = [];
+//var snowNames = [];
+//let snow1;
+
+
+function setup() {
+  createCanvas(400, 400);
+  background(0);
+  for(let i = 0; i==50; i++){
+    snowX[i] = random(0, 400);
+    snowY[i] = random(0, 400)
+    //snowNames[i] = 'snow'+str(i);
+    //console.log(snowNames[i]);
+    //snow1= new Snow(snowX[i], snowY[i]);
+  }
+
+}
+
+function draw() {
+  fill(255);
+ for(let i = 0; i==50; i++){
+   circle(snowX[i], snowY[i]+frameCount, 10);
+ }
+}
+
+
+/*var snownames = [];
+var snowX = 
+
+function setup() {
+  createCanvas(800, 800);
+  background(0);
+  for(i=0; i=50; i+=1){
+    snownames[i]= 'snow'+str(i);
+    console.log(snownames[i]);
+  }
+  
+}
+
+function draw() {
+  fill(255, 0, 0);
+  //noFill();
+  ellipse(10, 30, 20);
+  one.display();
+  //one.y_;
+  one.move();
+  //snow
+
+  //for(i=0; i>=50; i++){
+  
+  //}
+}
+
+class Snow{
+  constructor(x, y, s){
+    this.x_=x;
+    this.y_=y;
+    this.speed = s;
+  }
+  display(){
+    fill(255);
+    circle(this.x, this.y, 10);
+
+  }
+  move(){
+    this.y = this.y_ + this.speed;
+    if (this.y>= 700){
+      this.y=700;
+
+    this.x = this.x_+ xaxis;
+    if(this.x > width){
+      this.x = 0;
+    }
+    }
+  }
+}
+
+
+//var one;
+//var two;
+var ypos;
+var xpos;
+var xpositions=[];
+var ypositions=[];
+
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  background(0);
+  for (var i = 0; i <= 50; i++){
+    xpositions[i] = random(0, windowWidth);
+  }
+
+
+  //one = new Snow();
+ // two = new Snow();
+}
+
+function draw() {
+  fill(255);
+  for(var i = 0; i <=50; i++){
+    circle(xpositions[i], frameCount, 2);
+  }
+}
+  //snow(10);
+  //snow(1);
+  //snow(2);
+  //circle(100, frameCount, 10);
+  //for(let i=0; i=700; i++){
+    //var ypos = i;
+  //}
+  //circle(100, frameCount, 10);
+  //one.fall();
+  //two.fall();
+  //two.y=frameCount;
+  /*for(i=0; i=700; i++){
+    one.y=i;*/
+  //}
+  //one.display();
+  //one.display(50, i);
+  //two.display(100, i);
+  
+//}
+/*
+function snow(y){
+  for(let i=0; i==700; i++){
+    circle(random(0, windowWidth), y, 5);
+  }
+}
+
+
+
+
+*/
+
+/*class Snow{
+  constructor(){
+    //this.x=x;
+    //this.y=y;
+    //this.speed=speed;
+    //circle(this.x, this.y, 10);
+  }
+  fall(){
+    this.y = this.y + this.speed;
+    //if(this.y>= 700){
+      //this.y=700;
+    this.x=this.x;
+    //if(this.x > width){
+      //this.x = 0;
+    //}
+  
+  display(){
+    fill(255);
+    circle(this.x, this.y, 2);
+    //for(i=this.y; i=700; i++){
+      //circle(this.x, i, 2);
+  }
+}*/
