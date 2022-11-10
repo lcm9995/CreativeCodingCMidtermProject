@@ -3,7 +3,20 @@
 var snowX = []; // empty list of x values for snow circles
 var snowY = []; // empty list of y values for snow circles
 
-let branch1;
+let snow11;
+let snow12;
+let snow13;
+let snow14;
+let snow21;
+let snow22;
+let snow23;
+let snow24;
+let snow31;
+let snow32;
+let snow33;
+let snow34;
+
+//let branch1;
 
 var A=0;
 var B = 0;
@@ -25,20 +38,32 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   // background(220);
   background(0);
-  for(var i = 0; i<=2000; i++){
+  snow11 = new Snow(0, 100, 0, windowWidth/4, 0, windowHeight);
+  snow12= new Snow(101, 200, windowWidth/8, windowWidth/2, 0, windowHeight);
+  snow13= new Snow(201, 300, windowWidth/4, windowWidth*0.875, 0, windowHeight);
+  snow14= new Snow(301, 400, windowWidth*0.5, windowWidth, 0, windowHeight);
+  snow21 = new Snow(401, 500, 0, windowWidth/4, -windowHeight, 0);
+  snow22 = new Snow(501, 600, windowWidth/4, windowWidth/2, -windowHeight, 0);
+  snow23 = new Snow(601, 700, windowWidth/2, windowWidth*0.75, -windowHeight, 0);
+  snow24 = new Snow(701, 800, windowWidth*0.75, windowWidth, -windowHeight, 0);
+  snow31 = new Snow(801, 900, 0, windowWidth/4, -windowHeight*2, -windowHeight);
+  snow32 = new Snow(901, 1000, windowWidth/4, windowWidth/2, windowHeight*-2, -windowHeight);
+  snow33 = new Snow(1001, 1100, windowWidth/2, windowWidth*0.75, windowHeight*-2, -windowHeight);
+  snow34 = new Snow(1101, 1200, windowWidth*0.75, windowWidth, windowHeight*-2, -windowHeight);
+  /*for(var i = 0; i<=2000; i++){
     snowX[i] = random(0, windowWidth);
-    snowY[i] = random(-2000, windowHeight-100);
+    snowY[i] = random(-2000, windowHeight-100);*/
     //snowNames[i] = 'snow'+str(i);
     //console.log(snowNames[i]);
     //snow1= new Snow(snowX[i], snowY[i]);
-  }
-  branch1 = new Trees(10, 800, 400, 2);
 
+ // }
+ // branch1 = new Trees(10, 800, 400, 2);
 }
 
 function draw() {
   //background(0);
-  branch1.display();
+  //branch1.display();
   //wave();
   k+=1;
   if(k%2==0){
@@ -72,7 +97,7 @@ function draw() {
     snowTime=true;
   }
   if(snowTime==true){
-    snow();
+    snowing(1, 1.2, .8, 1.1);
     yellowCircle(230, 200, 230, backFade*.8*1.5, 150);
   }
  }
@@ -125,10 +150,83 @@ function draw() {
   //console.log(A);
 
 
-function snow(){
+  function snowing(s1, s2, s3, s4){
+  background(0);
+  snow11.display();
+  snow12.display();
+  snow13.display();
+  snow14.display();
+  snow21.display();
+  snow22.display();
+  snow23.display();
+  snow24.display();
+  snow31.display();
+  snow32.display();
+  snow33.display();
+  snow34.display();
+  /*snow41.display();
+  snow42.display();
+  snow43.display();
+  snow44.display();*/
+  snow11.move(s1);
+  snow21.move(0.9*s1);
+  snow31.move(s1*0.95);
+ // snow41.move(s1*0.8);
+  snow12.move(s2);
+  snow22.move(s2*0.9);
+  snow32.move(s2*.75);
+ // snow42.move(s2*.6);
+  snow13.move(s3);
+  snow23.move(s3*0.9);
+  snow33.move(s3*0.85);
+ // snow43.move(s3*0.74);
+  snow14.move(s4);
+  snow24.move(s4*0.88);
+  snow34.move(s4*0.7);
+ // snow44.move(s4*0.7);
+//  snow14.move(s4);
+}
+
+class Snow{
+  constructor(i1, i2, w1, w2, h1, h2){
+    this.i1=i1;
+    this.i2=i2;
+    this.w1 = w1;
+    this.w2 = w2;
+    this.h1 = h1;
+    this.h2 = h2;
+    this.A = A;
+    
+    for(var i = this.i1; i<=this.i2; i++){
+    snowX[i] = random(this.w1, this.w2);
+    snowY[i] = random(this.h1, this.h2);
+    }
+  }
+  display(){
+  fill(255);
+  stroke(255);
+  for (var i = this.i1; i<=this.i2; i++){ // i represents the list index and x/y values of the snow,
+    if(snowY[i]+this.A>= height-100){ //if y value plus the amount the snow is moving down by (A) is below the imaginary ground line
+      circle(snowX[i], (height-100), 0.5); // circle will be drawn with 
+    } else {
+         circle(snowX[i], snowY[i]+this.A, 0.5);
+          }
+    /*if((snowY[i]+A>=height-100)&&(snowY[i]<=height-100)){
+      circle(snowX[i], height-100, width/400);
+    }*/
+  }
+}
+  move(speed){
+    this.speed=speed;
+    this.A=this.A+this.speed;
+  }
+}
+
+
+/*function snow(){
   /*if(inc>=(width*1000+width)){ //determines if the wave is off the screen so the background doesnt cover it up before it is done
     background(0); 
-  }*/
+  }
   //background(0);
   //road();
   fill(255); 
@@ -141,7 +239,7 @@ function snow(){
           }
     /*if((snowY[i]+A>=height-100)&&(snowY[i]<=height-100)){
       circle(snowX[i], height-100, width/400);
-    }*/
+    }
   }
   A=A+.7+random(.0,.3);
   /* fill(100);
@@ -150,7 +248,6 @@ function snow(){
   quad(windowWidth/2-10, windowHeight, windowWidth/2+10, windowHeight, windowWidth/2+7, windowHeight-30, windowWidth/2-7, windowHeight-30);
   quad(windowWidth/2-6.5, windowHeight-45, windowWidth/2+6.5, windowHeight-45, windowWidth/2+4.5, windowHeight-70, windowWidth/2-4.5, windowHeight-70);
   quad(windowWidth/2-4, windowHeight-80, windowWidth/2+4, windowHeight-80, windowWidth/2+3, windowHeight-100, windowWidth/2-3, windowHeight-100);*/
-}
 
 
 function wave(){
