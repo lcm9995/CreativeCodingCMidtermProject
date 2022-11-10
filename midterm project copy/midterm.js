@@ -3,40 +3,32 @@
 var snowX = []; // empty list of x values for snow circles
 var snowY = []; // empty list of y values for snow circles
 
-let snow11;
-let snow12;
-let snow13;
-let snow14;
-let snow21;
-let snow22;
-let snow23;
-let snow24;
-let snow31;
-let snow32;
-let snow33;
-let snow34;
+let snow11; // first left side snow object
+let snow12; // first left-middle snow object
+let snow13; // first middle right snow 
+let snow14; // first right side snow 
+let snow21; // second left side snow 
+let snow22; // second left-middle snow 
+let snow23; // second right middle snow 
+let snow24; // second right side snow 
+let snow31; // third left side snow 
+let snow32; // third left middle snow 
+let snow33; // third right middle snow 
+let snow34; // third right snow 
 
-//let branch1;
 
-var A=0;
+var A = 0; // stores the change in y of the snow from initial position
 var B = 0;
-//var snowNames = [];
-//let snow1;
-//var amplitude = 100;
-//  var period = 120;
-  //var x = amplitude * cos(TWO_PI * frameCount / period); // Nature of Code Chapter 3
-//var angleVel2 = .1;
 
-var inc = 0;
-var snowTime = false;
-var static = false;
-var k=0;
-var backFade=0;
+var inc = 0; 
+var snowTime = false; // used to signal the snowing() function to start
+var static = false; 
+var k=0; // acts like framecount, increases every time draw loop
+var backFade=0; // used to change the background and change the sketch over time
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // background(220);
   background(0);
   snow11 = new Snow(0, 100, 0, windowWidth/4, 0, windowHeight);
   snow12= new Snow(101, 200, windowWidth/8, windowWidth/2, 0, windowHeight);
@@ -50,55 +42,43 @@ function setup() {
   snow32 = new Snow(901, 1000, windowWidth/4, windowWidth/2, windowHeight*-2, -windowHeight);
   snow33 = new Snow(1001, 1100, windowWidth/2, windowWidth*0.75, windowHeight*-2, -windowHeight);
   snow34 = new Snow(1101, 1200, windowWidth*0.75, windowWidth, windowHeight*-2, -windowHeight);
-  /*for(var i = 0; i<=2000; i++){
-    snowX[i] = random(0, windowWidth);
-    snowY[i] = random(-2000, windowHeight-100);*/
-    //snowNames[i] = 'snow'+str(i);
-    //console.log(snowNames[i]);
-    //snow1= new Snow(snowX[i], snowY[i]);
-
- // }
- // branch1 = new Trees(10, 800, 400, 2);
 }
 
 function draw() {
-  //background(0);
-  //branch1.display();
-  //wave();
-  k+=1;
-  if(k%2==0){
-    backFade+=1;
-    background(0+backFade);
+  k+=1; // like framecount
+  if(k%2==0){ 
+    backFade+=1; // when k is even backfade goes up by 1, every other draw loop
+    background(0+backFade); // background color fades from black to white
   }
   //if(snowTime==true){
     //background(0);
  // }
 
-  if(backFade<=130){
-    greenFairies(50+backFade, 100+backFade);
-    if(backFade%3==0){
-      redFairies(200-2*backFade, 250-1.5*backFade);
+  if(backFade<=130){ 
+    greenFairies(50+backFade, 100+backFade); // passes the range of opacity for the fairies, which increases as it goes
+    if(backFade%3==0){ // red fairies appear less frequently
+      redFairies(200-2*backFade, 250-1.5*backFade); 
     }
   }
-  if((backFade>30) && (backFade<160)){
-    yellowCircle(250-1.5*backFade, 250-1.5*backFade, 0, 50+backFade*.4, backFade-20);
+  if((backFade>30) && (backFade<160)){ 
+    yellowCircle(250-1.5*backFade, 250-1.5*backFade, 0, 50+backFade*.4, backFade-20); // passes rgb values which decrease to black, size and opacity
   }
  if((backFade>=160)&&(backFade<=1000)){
-    yellowCircle(0, 0, 0, 200-.5*backFade, 250);
+    yellowCircle(0, 0, 0, 200-.5*backFade, 250); //black circle decreasing in size
     }
   if(backFade>=130){
-    wave();
+    wave(); //sound wave appears
   }
-  if(backFade>=150){
+  /*if(backFade>=150){
     static=true; 
-  }
-  if(backFade>=250){
-    static=false;
-    snowTime=true;
+  }*/
+  if(backFade>=150){
+    //static=false;
+    snowTime=true; // 
   }
   if(snowTime==true){
-    snowing(1, 1.2, .8, 1.1);
-    yellowCircle(230, 200, 230, backFade*.8*1.5, 150);
+    snowing(1, 1.2, .8, 1.1); // passes different values for speed for the different objects/ sections of snow to fall at
+    yellowCircle(240, 240, 240, backFade*.8*1.5, 150); // circle reappears and grows into white light
   }
  }
 
@@ -150,8 +130,8 @@ function draw() {
   //console.log(A);
 
 
-  function snowing(s1, s2, s3, s4){
-  background(0);
+  function snowing(s1, s2, s3, s4){ // function displays and moves objects of the snow class
+  //background(0); // reset background to black every loop so the circles dont become lines when they move
   snow11.display();
   snow12.display();
   snow13.display();
@@ -163,13 +143,13 @@ function draw() {
   snow31.display();
   snow32.display();
   snow33.display();
-  snow34.display();
+  snow34.display(); 
   /*snow41.display();
   snow42.display();
   snow43.display();
   snow44.display();*/
   snow11.move(s1);
-  snow21.move(0.9*s1);
+  snow21.move(0.9*s1); // speed differs between the different objects within the same x range so it looks like it changes a little over time
   snow31.move(s1*0.95);
  // snow41.move(s1*0.8);
   snow12.move(s2);
@@ -188,28 +168,29 @@ function draw() {
 }
 
 class Snow{
-  constructor(i1, i2, w1, w2, h1, h2){
-    this.i1=i1;
-    this.i2=i2;
-    this.w1 = w1;
-    this.w2 = w2;
-    this.h1 = h1;
-    this.h2 = h2;
-    this.A = A;
+  constructor(i1, i2, w1, w2, h1, h2){ 
+    this.i1=i1; // i value for the snowX and snowY lists because same two lists are used for all objects so their indexes cant overlap
+    this.i2=i2; // end i value
+    this.w1 = w1; // leftmost x cordinate of that snow section
+    this.w2 = w2; // rightmost x cord of that snow section
+    this.h1 = h1; // topmost y pos of that snow section
+    this.h2 = h2; // bottom y pos of that snow section
+    this.A = A; // starts at 0 and becomes larger as each object's speed is incremented
     
-    for(var i = this.i1; i<=this.i2; i++){
-    snowX[i] = random(this.w1, this.w2);
+    for(var i = this.i1; i<=this.i2; i++){ // for each i value of that object, the corresponding index is set to a random value within the snow range of that object
+    snowX[i] = random(this.w1, this.w2); 
     snowY[i] = random(this.h1, this.h2);
     }
   }
+
   display(){
   fill(255);
   stroke(255);
   for (var i = this.i1; i<=this.i2; i++){ // i represents the list index and x/y values of the snow,
     if(snowY[i]+this.A>= height-100){ //if y value plus the amount the snow is moving down by (A) is below the imaginary ground line
-      circle(snowX[i], (height-100), 0.5); // circle will be drawn with 
+      circle(snowX[i], (height-100), 0.5); // circle will stop 100 pixels above bottom of window to mimic the ground.
     } else {
-         circle(snowX[i], snowY[i]+this.A, 0.5);
+         circle(snowX[i], snowY[i]+this.A, 0.5); // otherwise the circle will move down by A
           }
     /*if((snowY[i]+A>=height-100)&&(snowY[i]<=height-100)){
       circle(snowX[i], height-100, width/400);
@@ -217,49 +198,21 @@ class Snow{
   }
 }
   move(speed){
-    this.speed=speed;
-    this.A=this.A+this.speed;
+    this.speed=speed; 
+    this.A=this.A+this.speed; // A holds the total distance the snow has fallen since zero, while speed represents the amount it falls each time
   }
 }
 
-
-/*function snow(){
-  /*if(inc>=(width*1000+width)){ //determines if the wave is off the screen so the background doesnt cover it up before it is done
-    background(0); 
-  }
-  //background(0);
-  //road();
-  fill(255); 
-  stroke(255);
-  for (var i = 0; i<=2000; i++){ // i represents the list index and x/y values of the snow,
-    if(snowY[i]+A>= height-100){ //if y value plus the amount the snow is moving down by (A) is below the imaginary ground line
-      circle(snowX[i], (height-100), 0.5); // circle will be drawn with 
-    } else {
-         circle(snowX[i], snowY[i]+A, 0.5);
-          }
-    /*if((snowY[i]+A>=height-100)&&(snowY[i]<=height-100)){
-      circle(snowX[i], height-100, width/400);
-    }
-  }
-  A=A+.7+random(.0,.3);
-  /* fill(100);
-  quad(windowWidth/7, windowHeight, windowWidth*.4, windowHeight/2, windowWidth*.6, windowHeight/2, windowWidth-windowWidth/7, windowHeight);
-  fill(150, 150, 0);
-  quad(windowWidth/2-10, windowHeight, windowWidth/2+10, windowHeight, windowWidth/2+7, windowHeight-30, windowWidth/2-7, windowHeight-30);
-  quad(windowWidth/2-6.5, windowHeight-45, windowWidth/2+6.5, windowHeight-45, windowWidth/2+4.5, windowHeight-70, windowWidth/2-4.5, windowHeight-70);
-  quad(windowWidth/2-4, windowHeight-80, windowWidth/2+4, windowHeight-80, windowWidth/2+3, windowHeight-100, windowWidth/2-3, windowHeight-100);*/
-
-
 function wave(){
-  var angle = 0; //
-  var angleVel = .3;
+  var angle = 0; // of wave as it is being drawn
+  var angleVel = .3; // more sharp waves angle increments by more at a time without changing amplitude
  // 
 
- if(backFade<=150){
+ if(backFade<=150){ 
   stroke(0);
  } else{
   background(0);
-   stroke(255);
+   stroke(255); 
   }
   strokeWeight(2);
   noFill();
@@ -273,13 +226,13 @@ function wave(){
       }*/
     //}
     if((inc%2)==0){ // if inc is even the wave for that vertex will use tan
-      var y = map(tan(angle), -1, 1, windowHeight-50, windowHeight-150); // map relocates the wave to 
-      vertex(x, y);
-      angle+=angleVel; //
+      var y = map(tan(angle), -1, 1, windowHeight-50, windowHeight-150); // map resizes the waves height from -1 to 1 to take up the bottom portion of the window
+      vertex(x, y); // vertex of wave changes as the for loop runs
+      angle+=angleVel; // 
     }
-   if((inc%2)!=0){ // if not
+   if((inc%2)!=0){ // if inc is uneven (every other run througgh of for loop), sin wave is drawn
       var c = map(sin(angle), -1, 1, windowHeight-150, windowHeight-50);
-      vertex(x, c);
+      vertex(x, c); // c used in place of y because using a different kind of wave so need different variable
       angle+=angleVel;
     }
 
@@ -318,16 +271,38 @@ function yellowCircle(r, g, b, s, o){ // r and g control red and green values, s
   circle(width/2, height/2, s);
 }
 
-function road(){
+function road(){ // did not end up using this function but made a road with street lights
   background(180, 150, 189);
   //fill(200);
   //rect(0, 0, windowWidth, windowHeight);
   stroke(50);
   fill(50);
   rect(0, windowHeight/2, windowWidth, windowHeight);
+   background(0);
+ // fill(200, 50);
+  //rect(0, 0, windowWidth, windowHeight);
+  stroke(50);
+  fill(50);
+  rect(0, windowHeight/2, windowWidth, windowHeight);
+  fill(90, 40, 10);
+  quad(-50, windowHeight, windowWidth/4, windowHeight/2, windowWidth-windowWidth/4, windowHeight/2, windowWidth+50, windowHeight);
+  fill(150, 150, 0);
+  quad(windowWidth/2-10, windowHeight, windowWidth/2+10, windowHeight, windowWidth/2+7, windowHeight-30, windowWidth/2-7, windowHeight-30);
+  quad(windowWidth/2-6.5, windowHeight-45, windowWidth/2+6.5, windowHeight-45, windowWidth/2+4.5, windowHeight-70, windowWidth/2-4.5, windowHeight-70);
+  quad(windowWidth/2-4, windowHeight-80, windowWidth/2+4, windowHeight-80, windowWidth/2+3, windowHeight-100, windowWidth/2-3, windowHeight-100);
+  //line(100, windowHeight, 130, windowHeight-400);
+  fill(250, 180, 50, 250);
+  circle(windowWidth-windowWidth/5, 50, 46);
+  fill(240, 180, 50, 80);
+  //stroke(240, 180, 50, 100);
+  noStroke();
+  triangle(windowWidth-windowWidth/5, 50, windowWidth-windowWidth/4, windowHeight-windowHeight/4, windowWidth/2-180, windowHeight/2+150);
+  ellipse(windowWidth/2-20, windowHeight-windowHeight/4, windowWidth/2+30, windowHeight/8);
+  fill(240, 180, 50, 50);
+  quad(windowWidth/2, windowHeight, windowWidth, windowHeight, windowWidth-windowWidth/4, windowHeight/2, windowWidth/2, windowHeight/2);
 }
 
-class Trees{
+class Trees{ // did not end up using this class 
   constructor(w1, x1, y1, scale1){
     this.weight = w1;
     this.x = x1;
@@ -347,209 +322,6 @@ class Trees{
     this.weight=this.weight-1;
     this.scaley=this.scaley;
   }
-}
-
-/*
-var snowX = []; // empty list of x values for snow circles
-var snowY = []; // empty list of y values for snow circles
-
-var A=0;
-var B = 0;
-//var snowNames = [];
-//let snow1;
-//var amplitude = 100;
-//  var period = 120;
-  //var x = amplitude * cos(TWO_PI * frameCount / period); // Nature of Code Chapter 3
-//var angleVel2 = .1;
-
-var inc = 0;
-var snowTime = false;
-
-var k=0;
-var backFade=0;
-
- var angle = 0; //
-var angleVel = .3;
+} 
 
 
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-   background(220);
-  //background(0);
-  for(var i = 0; i<=2000; i++){
-    snowX[i] = random(0, windowWidth);
-    snowY[i] = random(-2000, windowHeight-100);
-    //snowNames[i] = 'snow'+str(i);
-    //console.log(snowNames[i]);
-    //snow1= new Snow(snowX[i], snowY[i]);
-  }
-
-}
-
-function draw() {
-  //background(0);
-
-  //wave();
-  k+=1;
-  if(i%5==0){
-    backFade+=1;
-    background(0+backFade);
-  }
-  //if(snowTime==true){
-    //background(0);
- // }
-
-  if(backFade<=130){
-    greenFairies(50+backFade, 100+backFade);
-    if(backFade%3==0){
-      redFairies(200-2*backFade, 250-1.5*backFade);
-    }
-  }
-  if((backFade>30) && (backFade<160)){
-    yellowCircle(250-1.5*backFade, 250-1.5*backFade, 0, 50+backFade*.4, backFade-20);
-  }
- if((backFade>=160)&&(backFade<=1000)){
-    yellowCircle(0, 0, 0, 200-.5*backFade, 250);
-    }
-  if(backFade>=130){
-    wave();
-  }
-  //if(k>=200){
-    //snowTime=True;
-  //}
-}
-
-/*
-  if(backFade>=100){
-    wave();
-  }
-  if(backFade>=160){
-    snow();
-  }
-
-   if((backFade%2==0)&&(backFade<=130)){
-      greenFairies(50, 100);
-    }
-  if((backFade>30)&&(i<=900)){
-    yellowCircle(90+backFade, 220, 0, backFade/2, 150/backFade);
-  }
-  if((backFade>50) && (backFade<250)){
-    yellowCircle(250-1*backFade, 250-1*backFade, 0, backFade*1.1, backFade-20);
-  }
-  if((inc>=width*1000)&&(inc<width)){
-    yellowCircle(255, 255, 255, 250-1*backFade, 200);
-  }
-  if((inc>=width)){
-    yellowCircle(0, 0, 0, 1, 0);
-  }
-  }
-  /*if((backFade>=240)&&(backFade<=1)){
-    yellowCircle(0, 0, 240-backFade/2, 250);
-  }*/
-  //if(backFade>=200){
-    //snow();
-  //}
-  //if(backFade>130)
-
-  //greenFairies();
-  // greenFairies();
-  //if(backFade<=70){
-    //redFairies();
-  //}
-
-  //if(A<=2000){
-    //snow();
- // }
-  //if(A>1700){
-   // sound();
-  //}
-  
-  //console.log(A);
-
-
-/*function snow(){
-  /*if(inc>=(width*1000+width)){ //determines if the wave is off the screen so the background doesnt cover it up before it is done
-    background(0); 
-  }*/
- /* backGround(0);
-  fill(255); 
-  stroke(255);
-  for (var i = 0; i<=2000; i++){ // i represents the list index and x/y values of the snow,
-    if(snowY[i]+A >= height-100){ //if y value plus the amount the snow is moving down by (A) is below the imaginary ground line
-      circle(snowX[i], snowY[i]+ ((height-100)-snowY[i]), .5); // circle will be drawn with 
-    }
-    else{//if(snowY[i]+A < height-100){
-     circle(snowX[i], snowY[i]+A, .5);
-    }
-    /*if((snowY[i]+A>=height-100)&&(snowY[i]<=height-100)){
-      circle(snowX[i], height-100, width/400);
-    }*/
-  /*   A=A+.7;
-  }
-}
-
-function wave(){
- // 
-
- // if(backFade<160){
-  //stroke(0);
- // }
- // else{
-    //background(0);
-   // stroke(255);
-  //}
-  stroke(0);
-  strokeWeight(2);
-  noFill();
-
-  
-  beginShape(); 
-  for(var x = (-windowWidth*1000)+inc; x<=windowWidth; x+=70){ // creates wave that begins off left of window and ends at the edge of the window, the change in x dictates the wavelength and inc moves the wave across the window
-    /*if(x>(-width*1000)){
-      for(var i = 0; i<=255; i+= 1){
-        stroke(i);
-      }  if((inc%2)==0){ // if inc is even the wave for that vertex will use tan
-      var y = map(tan(angle), -1, 1, height-50, height-150); // map relocates the wave to 
-      vertex(x, y);
-      angle+=angleVel; //
-    }
-   if((inc%2)!=0){ // if not
-      var c = map(sin(angle), -1, 1, height-150, height-50);
-      vertex(x, c);
-      angle+=angleVel;
-    }
-
-  inc = inc + 1; // inc increases each loop so the wave continues to move
-}
-  if(inc>=(width*1000)){ 
-      snowTime=true; // tells the snow function to start as the wave ends
-    }
-  endShape();
-  /*if(backFade<=windowWidth/2){
-  yellowCircle(200, 200, 0, backFade*1.5, 90);
-}
-  if(backFade>=windowWidth/2){
-    yellowCircle(150, 150, 0, windowWidth/2-backFade*.8, 80);
-  }
-}
-
-function greenFairies(o1, o2){ 
-  stroke(0, random(100, 240), 0, random(o1, o2)); //random opacity between the two parameters and different values of green
-  fill(0, random(100, 240), 0, random(o1, o2));
-  circle(random(0, width), random(0, height), random(windowWidth/120, windowWidth/80)); //various size circles across screen
-}
-
-function redFairies(o1, o2){
-  stroke(random(150, 230), 0, 0, random(o1, o2)); //different opacity and different values of red
-  fill(random(150, 230), 0, 0, random(o1, o2));
-  ellipse(random(0, width), random(0, height), random(windowWidth/120, windowWidth/80), random(windowWidth/120, windowWidth/80)); //varying size and location
-  ellipse(random(0, width), random(0, height), random(windowWidth/120, windowWidth/80), random(windowHeight/100, windowHeight/90));
-  
-}
-
-function yellowCircle(r, g, b, s, o){ // r and g control red and green values, s gives size of circle, o gives opacity
-  stroke(r, g, b, o);
-  fill(r, g, b, o);
-  circle(width/2, height/2, s);
-}
-*/
